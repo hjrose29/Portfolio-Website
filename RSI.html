@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>RSI Analysis</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="MovieAlgo.html">Movie Recommendation Algorithm</a></li>
+							<li><a href="RSI.html">RSI Analysis</a></li>
+							<li><a href="Friends.html">Friends Visualization</a></li>
+							<li><a href="Titanic.html">Titanic Project</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>RSI Strategy Analysis</h1>
+							<img src="images/RSI/WallStreet.jpg" width= "1250px" height= "500px"/>
+							<p><b>Intro:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The stock market has been an interest of mine for years. With this, I decided to pair my interest in finances with my love for Data Science. Recently, I have been intrigued by a strategy based on the Relative Strength Index (RSI) for trading. As the name suggests the RSI provides information to the trader regarding the stock’s standing as either overbought or oversold. If the RSI is below 50, we can say that the RSI would suggest the stock to be relatively oversold. Likewise, if the RSI is above 50, we can say that the RSI would suggest the stock to be relatively overbought.</p>	
+							<p><b>Implementation:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; We can implement this in trading in many ways. This project uses the RSI in the following way: If the RSI is below 30, the script will buy as many shares as we can afford once the RSI crosses over 30. If the RSI is above 70, the script will sell as many shares as we have once the RSI crosses back below 70. The script will do so for the given period on the interval of 1 Hour.</p>
+							<p><b>The Code:</b></p>
+							<img src="images/RSI/Imports.jpg" align= "right" style ="margin: 0px 0px 0px 10px;"/> 
+							<p>First, we must import the required libraries, Pandas, Pandas_datareader, YFinance, and math. The Pandas and Pandas_datareader modules allow us to work with DataFrames. This data type allows our script to read, clean, and process CSV files. The YFinance module is an unofficial Python library allowing us to gather info regarding the stock market including the Open Price, Close Price, and Volume.</p>
+							<br><img src="images/RSI/GatherStockInfo.jpg" align= "left" style ="margin: 0px 10px 0px 0px;"/> 
+							<p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In our ‘gatherStockInfo’ function, two things happen. First, for our given ticker, the stocks data is collected from Yahoo Finance!. This first part of the function also calculates the change in preparation for calculating the RSI.</p>
+							<br><img src="images/RSI/RSI Calculations.jpg" align= "right" style ="margin: 0px 0px 0px 10px;"/> 
+							<p><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In the latter half of this function, I calculate my RSI. Unfortunately, the yfinance module does not provide indicators within itself. Therefore our script must calculate for us. As you can see, the first 15 days are filled with 0s because we cannot calculate the RSI effectively with that little of information. The number 7 here refers to the number of hours in the trading day from 9:30 to 3:30. The length variable determines the length of the RSI. To begin our calculation, we sum all positive changes and all negative changes over our length. We then take the absolute value of our negative change and use our summations to calculate the average positive and average negative change. From there, we divide our average positive change by our average negative change to find our relative strength. Then, we calculate the RSI using the formula in the code. Finally, we append our RSI to the list Y, later used to create a new column on our Data Frame.
+							</p>
+							<br><br><img src="images/RSI/RSI_Strategy.jpg" align= "left" width="500px" height ="700px" style ="margin: 50px 10px 0px 0px;"/> 
+							<p><br><br><br><br><br><br><br>From there, our script must implement our RSI. I accomplish this through the function displayed to the left. I imitate a trading situation with some starting sum of money. I then iterate through our data frame, from our start date, and make trades according to the rules discussed in the introduction. From there, it calculates the Return on Investment using the simple Return on Investment formula.</p>
+							<br><img src="images/RSI/Implementing RSI Strategy.jpg" align= "right" width = "750px" height = "470" style ="margin: 50px 0px 0px 10px;"/> 
+							<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>After implementing my RSI Strategy, I create a watchlist iterating through it using the RSI strategy. Using functions created throughout this program, I append each stock's ROI to a new list. In combination with this, I create a new list with the ROI assuming I bought and held the given stock for this period. Using these two ROI lists, I create a new Data Frame and save my results to a CSV.<br><br><font size="-0">Note:<br>&nbsp;&nbsp;   I did not need to clean the data considering my script created for as much data as I would analyze.
+							</font></p>
+							
+							<p><br><br><br><br><br><b>Visualization:</b></p>
+							<img src="images/RSI/Visualization2.jpg" width = "1200" height = "700" align = "left" style = "border:1px solid black;margin: 10px 0px 30px 50px;"/>
+							<p><br>I chose to use two forms of visualizations from Tableau. Bar graphs, and Box and Whisker Plots. I used a Bar Graph because there are two pieces of data across many companies that each company shares. For each company, bar graphs allow the audience to easily compare each strategy. I also included a shorter, 6-month time frame to illustrate any changes in data if we shrink the time frame. This affects the strategy slightly. I also chose to use dual box and whisker plots. These plots show the data spread and allow the audience to compare the median, quartiles, and outliers between the two strategies.</p>
+							<p><br><b>Conclusions:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        This data and visualization would suggest that in the past year, an investor’s portfolio would have performed better for these stocks chosen. Although this could be the case, this result leads me to believe there was an error. The most likely source of error would be when my script calculates the change for each index, or where it calculates the RSI. This is more likely the source rather than the implementation because before I implemented the RSI I tested multiple implementation methods.</p>
+							<p><br><b>Future Research:</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      Because of this possible error, I plan to look back at this project, revise my RSI formula, and try again. Another future piece of research will be to use an exponential moving average instead of the simple moving average for RSI calculations which I used in this experiment. I used the simple moving average to get the calculations correct the first time. Because many trading platforms use the exponential moving average, this places limits on the scope of my research.</p>
+
+							<p><br>Github Link:&nbsp;</p> 
+							<a href="https://github.com/hjrose29/RSI-Analysis" target="_blank" rel="noopener noreferrer">https://github.com/hjrose29/RSI-Analysis</a>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Get in touch</h2>
+								<form method="post" action="https://formspree.io/f/myylqdnv">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+							<section>
+								<h2>Github:</h2>
+								<ul class="icons">
+									<li><a href="https://github.com/hjrose29" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
